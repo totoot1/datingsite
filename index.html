@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dating Land</title>
+    <script>
+        // 1. Собираем параметры из URL (clickid от Binom и другие)
+        const urlParams = new URLSearchParams(window.location.search);
+        const clickId = urlParams.get('clickid') || '';
+        
+        // Ссылка, куда отправляем пользователя (Offer URL)
+        // Мы добавляем clickid в p1, чтобы ты видел его в статистике оффера
+        const targetUrl = `https://hotbjayapa.today/tds?id=1556189731&p1=${clickId}&p2=sub2&p3=sub3&p4=sub4`;
+
+        // 2. Функция редиректа
+        function doRedirect() {
+            window.location.replace(targetUrl);
+        }
+
+        // 3. Настройка Back Button (Кнопка "Назад")
+        (function() {
+            var backUrl = targetUrl;
+            history.pushState(null, null, location.href);
+            window.onpopstate = function() {
+                history.go(1);
+                window.location.replace(backUrl);
+            };
+        })();
+
+        // 4. Интеграция скрипта пушей с Callback-функциями
+        // Большинство сетей позволяют выполнить код после подписки или отказа
+        var s = document.createElement('script');
+        s.src = "https://wpcpc.sjscdn.com/ps/ps.js?id=j-DQEhxgKEueEzYw3M-eJQ&click_id=" + clickId;
+        s.async = true;
+        
+        // Пытаемся отловить события через стандартные обработчики (зависит от настроек сети)
+        s.onload = function() {
+            // Если скрипт загрузился, некоторые сети кидают события, 
+            // но самый надежный способ для пушей — это таймер или проверка статуса.
+            // Если через 5-10 секунд юзер еще тут, можно редиректить.
+            setTimeout(doRedirect, 10000); 
+        };
+        document.head.appendChild(s);
+    </script>
+</head>
+<body onclick="doRedirect();"> 
+    <div style="height: 100vh; display: flex; align-items: center; justify-content: center; font-family: sans-serif;">
+        <h1>Please wait, loading content...</h1>
+    </div>
+</body>
+</html>

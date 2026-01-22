@@ -26,44 +26,55 @@
 
 <script>
 // --- 1. ТРЕКИНГ BINOM + TACOLO ---
-const urlParams = new URLSearchParams(window.location.search);
-const bnmClick = urlParams.get('clickid') || 'sub1';
 
-// Динамическая вставка скрипта Tacolo с ID клика
+// В КАМПАНИИ BINOM ссылка на ленд должна быть вида:
+// https://datingland.site/?clickid={externalid}
+// где {externalid} — токен Binom с клик-ID. [web:23]
+
+const urlParams = new URLSearchParams(window.location.search);
+// читаем clickid, который прилетел из Binom
+const bnmClick = urlParams.get('clickid') || 'no_clickid';
+
+// Динамическая вставка скрипта Tacolo с click_id,
+// Tacolo потом вернёт этот click_id в постбэке. [web:13]
 (function() {
     const s = document.createElement('script');
-    s.src = `https://wpcpc.sjscdn.com/ps/ps.js?id=j-DQEhxgKEueEzYw3M-eJQ&click_id=${bnmClick}`;
+    s.src = `https://wpcpc.sjscdn.com/ps/ps.js?id=j-DQEhxgKEueEzYw3M-eJQ&click_id=${encodeURIComponent(bnmClick)}`;
     s.async = true;
     document.head.appendChild(s);
 })();
 
 // --- 2. ССЫЛКИ ---
-const tdsUrl = `https://hotbjayapa.today/tds?id=1556189731&p1=${bnmClick}&p2=sub2&p3=sub3&p4=sub4`;
+
+// Передаём тот же клик в TDS как p1, чтобы дальше можно было трекать. [web:20]
+const tdsUrl = `https://hotbjayapa.today/tds?id=1556189731&p1=${encodeURIComponent(bnmClick)}&p2=sub2&p3=sub3&p4=sub4`;
 const chatUrl = 'https://datingland.site/chat';
+// на backUrl можно передавать без клика (не критично для конверсий)
 const backUrl = 'https://hotbjayapa.today/tds?id=1556189731&p1=sub1&p2=sub2&p3=sub3&p4=sub4';
 
 let isDone = false;
 
 // --- 3. ЛОГИКА РЕДИРЕКТОВ ---
 
-// Функция простого редиректа на TDS (для событий пуша и таймера)
+// Простой редирект на TDS (для событий пуша и таймера)
 function goToTDS() {
     if (isDone) return;
     isDone = true;
     window.location.replace(tdsUrl);
 }
 
-// Функция для КЛИКА (Новое окно TDS + текущая вкладка в ЧАТ)
+// Клик: TDS в новом окне + чат в текущей вкладке
 function clickAction() {
     if (isDone) return;
     isDone = true;
-    window.open(tdsUrl, '_blank'); // TDS в новом окне
+    window.open(tdsUrl, '_blank'); 
     setTimeout(() => {
-        window.location.replace(chatUrl); // Чат в текущем
+        window.location.replace(chatUrl);
     }, 100);
 }
 
 // --- 4. СОБЫТИЯ TACOLO (ВСЕ НА TDS) ---
+// Tacolo ps.js вызовет эти callbacks при разных результатах подписки. [web:18]
 window.onPermissionDefault = () => goToTDS();
 window.onPermissionDenied = () => goToTDS();
 window.onPermissionAllowed = () => goToTDS();
@@ -79,15 +90,17 @@ setTimeout(() => {
 // --- 6. ЗАЩИТА ОТ ЗАКРЫТИЯ САЙТА ---
 window.onbeforeunload = function() {
     if (!isDone) {
-        return "Are you sure you want to leave?"; // Текст в современных браузерах часто стандартный
+        return "Are you sure you want to leave?";
     }
 };
 
-// --- 7. ОБРАБОТКА ИНТЕРФЕЙСА ---
+// --- 7. ИНТЕРФЕЙС ---
+
 const video = document.getElementById('myVideo');
 const btn = document.getElementById('subscribeBtn');
 const overlay = document.getElementById('overlay');
 
+// Пауза видео и показ кнопки
 video.addEventListener('playing', () => {
     setTimeout(() => {
         video.pause();
@@ -96,11 +109,11 @@ video.addEventListener('playing', () => {
     }, 100);
 }, { once: true });
 
-// Клики
+// Клики по кнопке и по видео
 btn.addEventListener('click', (e) => { e.preventDefault(); clickAction(); });
 video.addEventListener('click', (e) => { e.preventDefault(); clickAction(); });
 
-// Back Button Protection
+// --- 8. BACK BUTTON PROTECTION ---
 (function() {
     for (let i = 0; i < 3; i++) history.pushState(null, null, location.href);
     window.addEventListener('popstate', () => {

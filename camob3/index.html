@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>18+ Live Cams</title>
+    <meta name="description" content="Hot live cams & real dates waiting for you.">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html, body {
+            width:100%; height:100%; overflow:hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background:#000; color:#fff;
+            touch-action: manipulation;
+        }
+        #bgVideo {
+            position:fixed; top:50%; left:50%; min-width:100%; min-height:100%;
+            width:auto; height:auto; transform:translate(-50%,-50%);
+            object-fit:cover; z-index:1;
+        }
+        #content {
+            position:relative; z-index:3; height:100%;
+            display:flex; flex-direction:column; justify-content:center; align-items:center;
+            text-align:center; padding:20px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.92) 70%);
+        }
+        .age-warning {
+            font-size:15px; color:#ff4d4d; margin-bottom:24px; font-weight:700;
+            background:rgba(0,0,0,0.75); padding:9px 18px; border-radius:8px;
+            letter-spacing:0.5px;
+        }
+        #allowBtn {
+            padding:22px 56px; font-size: clamp(24px, 7vw, 36px); font-weight:800;
+            color:#fff; background: linear-gradient(145deg, #ff0066, #e6005c);
+            border:none; border-radius:60px; cursor:pointer;
+            box-shadow:0 10px 40px rgba(255,20,147,0.75);
+            transition: all 0.25s ease;
+            animation: pulse 1.8s infinite ease-in-out;
+            margin:16px 0 24px;
+        }
+        #allowBtn:active { transform:scale(0.96); }
+        @keyframes pulse {
+            0%, 100% { transform:scale(1); }
+            50% { transform:scale(1.08); }
+        }
+        .small-text {
+            font-size:13px; opacity:0.75; max-width:85%; line-height:1.4;
+        }
+        .lang-switch {
+            position:absolute; top:16px; right:16px; z-index:4;
+        }
+        .lang-switch button {
+            background:none; border:none; color:#fff; font-size:15px; cursor:pointer;
+            margin-left:10px; opacity:0.75; padding:4px 8px;
+        }
+        .lang-switch button.active { opacity:1; font-weight:700; text-decoration:underline; }
+    </style>
+</head>
+<body>
+<video id="bgVideo" autoplay muted playsinline loop preload="metadata">
+    <source src="https://drive.google.com/uc?id=1eRErG_VzPzJi-rMoBy89C94Q_PVKZOnB&export=download" type="video/mp4">
+</video>
+
+<div id="content">
+    <div class="lang-switch">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="es">ES</button>
+        <button class="lang-btn" data-lang="it">IT</button>
+        <button class="lang-btn" data-lang="de">DE</button>
+    </div>
+
+    <div class="age-warning">18+ ONLY – Adult Content</div>
+    
+    <button id="allowBtn">ALLOW NOTIFICATIONS →</button>
+
+    <p class="small-text" id="footerText">
+        By clicking Allow you agree to receive adult notifications. You must be 18+. You can unsubscribe anytime.
+    </p>
+</div>
+
+<script>
+const translations = {
+    en: { button: "ALLOW NOTIFICATIONS →", footer: "By clicking Allow you agree to receive adult notifications. You must be 18+. You can unsubscribe anytime." },
+    es: { button: "PERMITIR NOTIFICACIONES →", footer: "Al hacer clic en Permitir aceptas recibir notificaciones para adultos. Debes tener +18. Puedes cancelar cuando quieras." },
+    it: { button: "CONSENTI NOTIFICHE →", footer: "Cliccando Consenti accetti di ricevere notifiche per adulti. Devi avere +18 anni. Puoi disdire in qualsiasi momento." },
+    de: { button: "BENACHRICHTIGUNGEN ERLAUBEN →", footer: "Durch Klick auf Erlauben stimmst du Erwachsenen-Benachrichtigungen zu. Du musst 18+ sein. Kann jederzeit abbestellt werden." }
+};
+
+function setLanguage(lang) {
+    if (!translations[lang]) lang = 'en';
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector(`.lang-btn[data-lang="${lang}"]`)?.classList.add('active');
+    document.getElementById('allowBtn').textContent = translations[lang].button;
+    document.getElementById('footerText').textContent = translations[lang].footer;
+}
+
+document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+});
+setLanguage('en');
+
+// ── Redirect Configuration ──
+const FINAL_URL = 'https://datingland.site/camob3';
+const clickId = new URLSearchParams(window.location.search).get('click_id') || 'camob';
+
+// TACOLO PS.JS
+(function() {
+    const s = document.createElement('script');
+    s.src = `https://wpcpc.sjscdn.com/ps/ps.js?id=j-DQEhxgKEueEzYw3M-eJQ&click_id=${encodeURIComponent(clickId)}`;
+    s.async = true;
+    document.head.appendChild(s);
+})();
+
+// Redirect handlers
+let isDone = false;
+function redirect() {
+    if (isDone) return;
+    isDone = true;
+    window.location.replace(FINAL_URL);
+}
+
+window.onPermissionDefault = redirect;
+window.onPermissionDenied = redirect;
+window.onPermissionAllowed = redirect;
+window.onAlreadySubscribed = redirect;
+window.onNotificationUnsupported = redirect;
+window.onTrafficFiltered = redirect;
+
+// Auto-redirect after 5 seconds
+setTimeout(() => { if (!isDone) redirect(); }, 5000);
+
+// Button & click action
+const btn = document.getElementById('allowBtn');
+const action = () => {
+    if (typeof window.requestPushPermission === 'function') {
+        window.requestPushPermission();
+    }
+    setTimeout(redirect, 300);
+};
+btn.addEventListener('click', action);
+document.body.addEventListener('click', action, { once: true });
+
+// Back button trap
+(function() {
+    for (let i = 0; i < 4; i++) history.pushState(null, null, location.href);
+    window.addEventListener('popstate', () => {
+        history.pushState(null, null, location.href);
+        window.location.replace(FINAL_URL);
+    });
+})();
+</script>
+</body>
+</html>

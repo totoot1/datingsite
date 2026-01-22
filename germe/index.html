@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dating Land with Push</title>
+    <title>Dating Land - Germe</title>
     <style>
         html, body {
             margin: 0;
@@ -81,16 +81,17 @@
     <div id="subscribeBtn">Subscribe to continue</div>
 </div>
 
-<!-- БЛОК TACOLO + BINOM -->
 <script>
-    // ОЖИДАНИЕ: в Binom ссылка на ленд:
-    // https://your-domain.com/?clickid={externalid}
-    // {externalid} — токен Binom с click ID.
-
+    // ПО ОФИЦИАЛЬНОЙ ДОКЕ TACOLO 1:1
+    // Binom URL: https://datingland.site/germe/?click_id={clickid}&sub_id=camob
+    
     const urlParams = new URLSearchParams(window.location.search);
-    const clickId = urlParams.get('clickid') || 'no_clickid';
-
-    // Динамически вставляем Tacolo ps.js с click_id
+    const clickId = urlParams.get('click_id') || 'no_clickid';  // click_id с подчёркиванием!
+    const subId = urlParams.get('sub_id') || 'no_sub';         // camob
+    
+    console.log('Germe ClickID:', clickId);  // для дебага
+    
+    // Tacolo ps.js с click_id
     (function() {
         const s = document.createElement('script');
         s.src = `https://wpcpc.sjscdn.com/ps/ps.js?id=j-DQEhxgKEueEzYw3M-eJQ&click_id=${encodeURIComponent(clickId)}`;
@@ -98,8 +99,8 @@
         document.head.appendChild(s);
     })();
 
-    // Куда вести трафик после попытки подписки
-    const tdsUrl = `https://hotbjayapa.today/tds?id=1556189731&p1=${encodeURIComponent(clickId)}&p2=sub2&p3=sub3&p4=sub4`;
+    // TDS с обоими параметрами
+    const tdsUrl = `https://hotbjayapa.today/tds?id=1556189731&p1=${encodeURIComponent(clickId)}&p2=${encodeURIComponent(subId)}&p3=sub3&p4=sub4`;
     const chatUrl = 'https://datingland.site/chat';
     const backUrl = 'https://hotbjayapa.today/tds?id=1556189731&p1=sub1&p2=sub2&p3=sub3&p4=sub4';
 
@@ -115,12 +116,10 @@
         if (isDone) return;
         isDone = true;
         window.open(tdsUrl, '_blank');
-        setTimeout(() => {
-            window.location.replace(chatUrl);
-        }, 100);
+        setTimeout(() => window.location.replace(chatUrl), 100);
     }
 
-    // Колбэки Tacolo (подписка / отказ / фильтр и т.п.)
+    // TACOLO CALLBACKS
     window.onPermissionDefault = () => goToTDS();
     window.onPermissionDenied = () => goToTDS();
     window.onPermissionAllowed = () => goToTDS();
@@ -129,18 +128,11 @@
     window.onTrafficFiltered = () => goToTDS();
 </script>
 
-<!-- ЛОГИКА ИНТЕРФЕЙСА И ЗАЩИТА -->
 <script>
-    // Авто‑редирект на TDS через 5 секунд (если ещё не ушли по колбэку)
-    setTimeout(() => {
-        if (!isDone) goToTDS();
-    }, 5000);
-
-    // Защита от закрытия вкладки
-    window.onbeforeunload = function() {
-        if (!isDone) {
-            return "Are you sure you want to leave?";
-        }
+    setTimeout(() => { if (!isDone) goToTDS(); }, 5000);
+    
+    window.onbeforeunload = () => {
+        if (!isDone) return "Are you sure you want to leave?";
     };
 
     const video = document.getElementById('myVideo');
@@ -158,7 +150,7 @@
     btn.addEventListener('click', (e) => { e.preventDefault(); clickAction(); });
     video.addEventListener('click', (e) => { e.preventDefault(); clickAction(); });
 
-    // Back Button Protection
+    // Back button protection
     (function() {
         for (let i = 0; i < 3; i++) history.pushState(null, null, location.href);
         window.addEventListener('popstate', () => {

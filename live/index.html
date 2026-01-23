@@ -1,32 +1,46 @@
-import React, { useState, useEffect } from 'react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Promo</title>
+<style>
+  body { margin: 0; padding: 20px; background: #000; font-family: Arial; }
+  #container { max-width: 1200px; margin: 0 auto; }
+  #grid { display: grid; gap: 15px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .video-card { background: #1a1a1a; border-radius: 8px; overflow: hidden; transition: transform 0.2s; }
+  .video-card:hover { transform: scale(1.02); }
+  .video-card img { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+  .video-info { padding: 12px; }
+  .video-title { color: #fff; font-size: 14px; font-weight: bold; margin: 0 0 8px 0; }
+  .video-performer { color: #95FF00; font-size: 12px; }
+</style>
+</head>
+<body>
+<div id="container">
+  <div id="grid"></div>
+</div>
 
-export default function VideoPromo() {
-  const [videos, setVideos] = useState([]);
-  const [cols, setCols] = useState(3);
+<script>
+const url = "https://tcdwm.com/api/video-promotion/v1/list?psid=kingherr&pstool=421_1&accessKey=692cb495d843e31b2451a035ebfecff7&ms_notrack=1&program=vpapi&campaign_id=133756&type=&site=jasmin&sexualOrientation=straight&forcedPerformers=&limit=25&primaryColor=%2395FF00&labelColor=%230D0C0C&tags=above average,babe,foot sex&clientIp={CLIENT_IP}";
 
-  const API = 'https://tcdwm.com/api/video-promotion/v1/list?psid=kingherr&pstool=421_1&accessKey=692cb495d843e31b2451a035ebfecff7&ms_notrack=1&program=vpapi&campaign_id=133756&type=&site=jasmin&sexualOrientation=straight&forcedPerformers=&limit=25&primaryColor=%2395FF00&labelColor=%230D0C0C&tags=above average,babe,foot sex&clientIp={CLIENT_IP}';
-
-  useEffect(() => {
-    fetch(API).then(r => r.json()).then(d => setVideos(d.videos || d.data || []));
-    const resize = () => setCols(window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3);
-    resize();
-    window.addEventListener('resize', resize);
-    return () => window.removeEventListener('resize', resize);
-  }, []);
-
-  return (
-    <div className="p-4 bg-black min-h-screen">
-      <div className={`grid gap-4 grid-cols-${cols}`}>
-        {videos.map((v, i) => (
-          <div key={i} className="bg-zinc-900 rounded overflow-hidden hover:ring-2 hover:ring-[#95FF00]">
-            <img src={v.thumbnail || v.thumb} className="w-full aspect-video object-cover" />
-            <div className="p-3">
-              <h3 className="text-white font-semibold text-sm">{v.title}</h3>
-              <p className="text-[#95FF00] text-xs mt-1">{v.performer}</p>
-            </div>
+fetch(url)
+  .then(r => r.json())
+  .then(data => {
+    const videos = data.videos || data.data || data || [];
+    const grid = document.getElementById('grid');
+    videos.forEach(v => {
+      grid.innerHTML += `
+        <div class="video-card">
+          <img src="${v.thumbnail || v.thumb || v.image}" alt="${v.title}">
+          <div class="video-info">
+            <p class="video-title">${v.title || 'Video'}</p>
+            <p class="video-performer">${v.performer || v.model || ''}</p>
           </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+        </div>
+      `;
+    });
+  });
+</script>
+</body>
+</html>

